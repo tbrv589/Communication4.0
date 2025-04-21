@@ -21,10 +21,7 @@ const PageEcole = () => {
     return(
         
         <> 
-        
-
-
-     <SafeAreaView style={{flex: 1, paddingTop: 30}}> 
+    <SafeAreaView style={styles.SafeAreaView}> 
 
 
     <View style = {styles.avatarContainer}>    
@@ -35,6 +32,8 @@ const PageEcole = () => {
 
         />
     </View>
+    
+    <View style = {styles.separateur} />
         
       
         <ScrollView contentContainerStyle={styles.scroll}>
@@ -106,6 +105,14 @@ const PageEcole = () => {
 
 const styles = StyleSheet.create({
 
+    SafeAreaView: {
+
+        flex: 1,
+        paddingTop: 210,
+
+
+    },
+
 
     avatarContainer: {
         position: 'absolute',
@@ -113,7 +120,7 @@ const styles = StyleSheet.create({
         left: 0,
         right: 0,
         alignItems: 'center',
-        zIndex: 10, // pour qu’il passe AU-DESSUS du scroll
+        zIndex: 10, 
       },
 
     scroll : {
@@ -129,6 +136,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         // backgroundColor: '#e6e6e6',
         padding: 1,
+        // paddingTop: 16,
         // marginBottom: 16,
         // borderRadius: 12,
 
@@ -137,6 +145,12 @@ const styles = StyleSheet.create({
 
     text: {
 
+        color: 'black',
+        fontSize: 36,
+        fontWeight: 'bold',
+        marginBottom: 50,
+        textAlign: 'center'
+        
 
 
     },
@@ -160,21 +174,22 @@ const styles = StyleSheet.create({
         marginBottom: 20, 
 
 
+
     },
 
     image: {
 
-        width: 120,
-        height: 120,
+        width: 110,
+        height: 110,
         marginRight: 10,
-        marginTop: 210,
+        marginTop: 50,
         borderRadius: 8,
     
 
 
     },
 
-     avatar: {
+    avatar: {
 
          position: 'absolute',
          justifyContent: 'center',

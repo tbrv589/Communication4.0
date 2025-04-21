@@ -4,6 +4,10 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import HomeScreen from './screens/HomeScreen';
 import PageEcole from './screens/PageEcole';
+import PageEtape1 from './screens/PageEtape1';
+import PageEtape2 from './screens/PageEtape2';
+import { Header } from 'react-native/Libraries/NewAppScreen';
+
 
 const Stack = createNativeStackNavigator();
 
@@ -24,6 +28,21 @@ function App() {
           name="PageEcole"
           component={PageEcole}
           options={{ headerShown: false }}/>
+
+
+        <Stack.Screen
+          name="PageEtape1"
+          component={PageEtape1}
+          options={{headerShown: false}}
+        
+        />
+
+        <Stack.Screen 
+          name="PageEtape2"
+          component={PageEtape2}
+          options={{headerShown: false}}
+        />
+
 
       </Stack.Navigator>
     </NavigationContainer>

@@ -4,7 +4,7 @@ import { View, Text, StyleSheet, Button } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import PageEcole from '../screens/PageEcole';
 
-const BottomBar = ({}) => {
+const BottomBar = () => {
 
   const navigation = useNavigation<any>()
 
@@ -13,6 +13,17 @@ const BottomBar = ({}) => {
       <Button title="Page ecole" color="black" 
         
         onPress={() => navigation.navigate('PageEcole')}
+
+      />
+      <Button title="PageEtape1" color="black" 
+        
+        onPress={() => navigation.navigate('PageEtape1')}
+
+      />
+
+      <Button title="PageEtape2" color="black" 
+        
+        onPress={() => navigation.navigate('PageEtape2')}
 
       />
     </View>
@@ -29,8 +40,9 @@ const styles = StyleSheet.create({
     right: 0,
     height: 80,
     backgroundColor: '#FFFF',
-    justifyContent: 'center',
     alignItems: 'center',
+    flexDirection: 'row'
+
   },
 
   text: {

@@ -84,7 +84,9 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase',
     fontFamily : 'monospace'
 
-}
+},
+
+
 
 
 
