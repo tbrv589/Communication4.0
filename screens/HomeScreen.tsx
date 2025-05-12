@@ -6,13 +6,8 @@ import React from 'react';
 import { Text, View, StyleSheet, Image } from 'react-native';
 import { BackgroundWrapper } from '../components/BackgroundWrapper';
 import BottomBar from '../components/LowBarre';
-import { Dimensions } from 'react-native';
-import { wd, hd } from '../utils/reponsive';
-import TextResponsive from '../utils/textresponsive'
+import { wd, hd } from '../utils/responsive';
 import { AvatarSpeaker } from '../components/Avatar';
-import { SafeAreaView } from 'react-native-safe-area-context';
-
-
 
 
 //--------------------------------------------------------------------------------------------------
@@ -21,11 +16,18 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 const HomeScreen = () => {
   return (
     <BackgroundWrapper>
+
+      <View style = {styles.container}>
+        
+          <Image style = {styles.logo} source ={require('../assets/images/logoPOLEFO.png')} />
+
+        </View>
+
       <View style = {styles.headerContainer}>
 
-        <Text style={styles.title}> Pole Formation 58-89 </Text>
+        <Text style={styles.title}>Pole Formation 58-89{"\n"}& Ses écoles / instituts</Text>
 
-        <AvatarSpeaker 
+        <AvatarSpeaker
         message="dialogue homepage motherfuck"
         avatarSource={require('../assets/images/encore.png')}
       />
@@ -35,7 +37,7 @@ const HomeScreen = () => {
 
 
 
-      <BottomBar /> 
+      <BottomBar />
 
     </BackgroundWrapper>
 
@@ -51,13 +53,23 @@ const HomeScreen = () => {
 
 const styles = StyleSheet.create({
 
-  //  avatar: {
 
-  //    flex: 1,
-  //    paddingHorizontal: 10,
+  container: {
+
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingTop: 35
 
 
-  //  },
+  },
+
+  logo: {
+
+    width: 85,
+    height: 85,
+
+  },
+
   
   imagelego: {
 
@@ -71,8 +83,8 @@ const styles = StyleSheet.create({
     flex: 1,
     alignContent: 'center',
     alignItems: 'center',  
-    marginTop: 50,         
-    marginBottom: 20,      
+    marginTop: 10,         
+    // marginBottom: 20,      
   },
 
 

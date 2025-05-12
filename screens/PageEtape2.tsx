@@ -1,9 +1,11 @@
 import React from "react";
-import { View, StyleSheet, ScrollView, TouchableOpacity, Text} from "react-native";
+import { View, StyleSheet, ScrollView, TouchableOpacity, Text, SafeAreaView} from "react-native";
 import { AvatarSpeaker } from "../components/Avatar";
 import { useNavigation } from "@react-navigation/native";
-import { SafeAreaView } from "react-native-safe-area-context";
 import Carrousel from "../components/Carrousel";
+import { ImageCarrousel } from "../components/elementcarrousel";
+import BottomBar from "../components/LowBarre";
+
 
 const PageEtape2 = () => {
 
@@ -15,11 +17,7 @@ const PageEtape2 = () => {
             navigation.navigate(page);
         }
 
-    // const slide = [
-
-
-
-    // ]
+    
 
     return(
 
@@ -44,7 +42,7 @@ const PageEtape2 = () => {
 
         <View style={styles.carrousel}>
 
-        <Carrousel />
+        <Carrousel itemList={ImageCarrousel}/>
 
         </View>
 
@@ -93,6 +91,7 @@ const PageEtape2 = () => {
 
         </ScrollView>
         </SafeAreaView>
+        <BottomBar />
         </>
     );
 };
@@ -151,7 +150,7 @@ const styles = StyleSheet.create({
 
         flex: 1,
         justifyContent: "center",
-        alignItems: "center"
+        // alignItems: "center"
 
     },
 

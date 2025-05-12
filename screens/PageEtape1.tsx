@@ -4,6 +4,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { StyleSheet, View, ScrollView, Text } from "react-native";
 import { AvatarSpeaker } from "../components/Avatar";
 import {TouchableOpacity} from 'react-native';
+import BottomBar from "../components/LowBarre";
 
 
 
@@ -118,6 +119,7 @@ const PageEtape1 = () => {
 
 
             </SafeAreaView>
+            <BottomBar />
         </>
 
 

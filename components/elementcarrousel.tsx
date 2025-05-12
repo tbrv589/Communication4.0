@@ -12,7 +12,7 @@ export const ImageCarrousel = [
 
     {
         title: "Premier",
-        image: require('../assets/images/epsi.png'),
+        image: require('../assets/images/phototest1.png'),
         description: 'donde esta la bibliotheca lol le mec spanish tsais inglish or spanish'
 
 
@@ -20,7 +20,7 @@ export const ImageCarrousel = [
 
     {
         title: "deuxieme",
-        image: require('../assets/images/3connardquiparlent.png'),
+        image: require('../assets/images/phototest2.png'),
         description: 'donde esta la bibliotheca lol le mec spanish tsais inglish or spanish'
 
 
@@ -28,7 +28,7 @@ export const ImageCarrousel = [
 
     {
         title: "troisieme",
-        image: require('../assets/images/epsi.png'),
+        image: require('../assets/images/phototest1.png'),
         description: 'donde esta la bibliotheca lol le mec spanish tsais inglish or spanish'
 
 
@@ -36,7 +36,7 @@ export const ImageCarrousel = [
 
     {
         title: "quatrieme",
-        image: require('../assets/images/3connardquiparlent.png'),
+        image: require('../assets/images/phototest2.png'),
         description: 'donde esta la bibliotheca lol le mec spanish tsais inglish or spanish'
 
 

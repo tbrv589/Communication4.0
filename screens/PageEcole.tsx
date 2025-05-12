@@ -3,9 +3,7 @@ import { AvatarSpeaker } from "../components/Avatar";
 import { StyleSheet, ScrollView ,View, Image, Text, TouchableOpacity} from 'react-native';
 import { useNavigation } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
-// import { Image } from "react-native-reanimated/lib/typescript/Animated";
-
-// require('../assets/images/epsi1.PNG')
+import BottomBar from "../components/LowBarre";
 
 const PageEcole = () => {
 
@@ -83,7 +81,7 @@ const PageEcole = () => {
             <TouchableOpacity style = {styles.zone} onPress={() => Envoiepage('HomeScreen')}> 
 
                 <Image source= {require('../assets/images/logoIET.png')}  style={styles.image} />
-                <Text style = {styles.text}> Environnement et écologie</Text>
+                <Text style = {styles.text}>Environnement et écologie</Text>
 
 
             </TouchableOpacity>
@@ -93,7 +91,10 @@ const PageEcole = () => {
         
         </ScrollView>
 
+        
+        
         </SafeAreaView> 
+        <BottomBar />
         </>
     
     )
