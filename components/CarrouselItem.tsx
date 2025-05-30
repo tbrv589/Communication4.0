@@ -72,10 +72,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginHorizontal: 10,
     position: "relative",
+    gap: 20
   },
   image: {
-    width: "100%",
-    height: "100%",
+    width: '100%',
+    height: '100%',
     borderRadius: 20,
   },
   background: {
@@ -96,3 +97,5 @@ const styles = StyleSheet.create({
     letterSpacing: 1.5,
   },
 });
+
+

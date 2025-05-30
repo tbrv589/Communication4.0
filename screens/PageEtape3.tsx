@@ -1,8 +1,9 @@
 import React from "react";
-import { View, StyleSheet, ScrollView, TouchableOpacity, Text, SafeAreaView} from "react-native";
+import { View, StyleSheet, ScrollView, TouchableOpacity, Text, SafeAreaView, Image} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { AvatarSpeaker } from "../components/Avatar";
 import {wd, hd} from '../utils/responsive'
+import BottomBar from "../components/LowBarre";
 
 
 const PageEtape3 = () => {
@@ -25,7 +26,7 @@ const PageEtape3 = () => {
           <View style = {styles.avatarContainer}>
           
               <AvatarSpeaker 
-                      message="dialogue homepage motherfuck"
+                      message="dialogue homepage"
                       avatarSource={require('../assets/images/encore.png')}
                       style = {styles.avatar}
               
@@ -36,6 +37,12 @@ const PageEtape3 = () => {
 
 
       <ScrollView contentContainerStyle = {styles.scroll}>
+
+        <View>
+
+        <Image style = {styles.ImageCV} source={require('../assets/images/3ckiparle.png')}  />
+
+        </View>
       
         <View>
 
@@ -72,6 +79,8 @@ const PageEtape3 = () => {
       
       </TouchableOpacity>
       </ScrollView>
+
+      <BottomBar />
       </SafeAreaView>
       </>
   );
@@ -169,7 +178,14 @@ separateur : {
 
 },
 
-})
+ImageCV:{
 
+  width: 325,
+  height: 215,
+  borderRadius: 25,
+  alignSelf: 'center'
+}
+
+})
 
 export default PageEtape3;

@@ -8,6 +8,8 @@ import { BackgroundWrapper } from '../components/BackgroundWrapper';
 import BottomBar from '../components/LowBarre';
 import { wd, hd } from '../utils/responsive';
 import { AvatarSpeaker } from '../components/Avatar';
+import ButtonHS from '../components/ButtonHS';
+// import DrawerNav from '../components/DrawerNav';
 
 
 //--------------------------------------------------------------------------------------------------
@@ -16,6 +18,8 @@ import { AvatarSpeaker } from '../components/Avatar';
 const HomeScreen = () => {
   return (
     <BackgroundWrapper>
+
+    
 
       <View style = {styles.container}>
         
@@ -28,14 +32,24 @@ const HomeScreen = () => {
         <Text style={styles.title}>Pole Formation 58-89{"\n"}& Ses écoles / instituts</Text>
 
         <AvatarSpeaker
-        message="dialogue homepage motherfuck"
+        message="dialogue homepage "
         avatarSource={require('../assets/images/encore.png')}
       />
       </View>
 
+
+    <View style={styles.CubeContainer}>
+      <Image
+        source={require('../assets/images/cube3d.png')}
+        style={styles.cube}
+      />
+    </View>
+
       
 
+    
 
+      {/* <DrawerNav /> */}
 
       <BottomBar />
 
@@ -84,7 +98,6 @@ const styles = StyleSheet.create({
     alignContent: 'center',
     alignItems: 'center',  
     marginTop: 10,         
-    // marginBottom: 20,      
   },
 
 
@@ -98,12 +111,23 @@ const styles = StyleSheet.create({
 
 },
 
-
-
+CubeContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  
+  
+  },
+  cube: {
+    width: 275,
+    height: 275,
+    alignContent: 'center',
+    alignItems: 'center',
+    
+    
+  },
 
 
 })
-
-
 
 export default HomeScreen;

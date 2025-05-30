@@ -4,6 +4,7 @@ import { StyleSheet, ScrollView ,View, Image, Text, TouchableOpacity} from 'reac
 import { useNavigation } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import BottomBar from "../components/LowBarre";
+import ButtonHS from "../components/ButtonHS";
 
 const PageEcole = () => {
 
@@ -19,12 +20,21 @@ const PageEcole = () => {
     return(
         
         <> 
+
+        
     <SafeAreaView style={styles.SafeAreaView}> 
 
+        <ButtonHS />
+
+        
 
     <View style = {styles.avatarContainer}>    
      <AvatarSpeaker 
-        message="dialogue homepage motherfuck"
+        message="dialogue truc ecole"
+        // message="dialogue Page Ecole et tout ce qui va
+        //  avec et enfaite la j'écris du text qui n'a absolument
+        //   aucun sens et qui va devoir etre animé ce texte
+        //    complétement inutile jle répete "
         avatarSource={require('../assets/images/encore.png')}
         style = {styles.avatar}
 
@@ -38,20 +48,20 @@ const PageEcole = () => {
 
         
 
-            <TouchableOpacity style = {styles.zone} onPress={() => Envoiepage('HomeScreen')}> 
+            <TouchableOpacity style = {styles.zone} onPress={() => Envoiepage('UIMM')}> 
 
                 <Image source= {require('../assets/images/logoPOLEFO.png')}  style={styles.image} />
-                <Text style = {styles.text}> Industrie</Text>
+                <Text style = {styles.text}>Industrie</Text>
 
 
             </TouchableOpacity>
 
             <View style = {styles.separateur} />
 
-            <TouchableOpacity style = {styles.zone} onPress={() => Envoiepage('HomeScreen')}> 
+            <TouchableOpacity style = {styles.zone} onPress={() => Envoiepage('PagePlanInscrip')}> 
 
                 <Image source= {require('../assets/images/logoITII.png')}  style={styles.image} />
-                <Text style = {styles.text}> Ingénierie</Text>
+                <Text style = {styles.text}>Ingénierie</Text>
 
 
             </TouchableOpacity>
@@ -61,7 +71,7 @@ const PageEcole = () => {
             <TouchableOpacity style = {styles.zone} onPress={() => Envoiepage('HomeScreen')}> 
 
                 <Image source= {require('../assets/images/logoEPSI.png')}  style={styles.image} />
-                <Text style = {styles.text}> Informatique</Text>
+                <Text style = {styles.text}>Informatique</Text>
 
 
             </TouchableOpacity>
@@ -71,7 +81,7 @@ const PageEcole = () => {
             <TouchableOpacity style = {styles.zone} onPress={() => Envoiepage('HomeScreen')}> 
 
                 <Image source= {require('../assets/images/logoIFAG.png')}  style={styles.image} />
-                <Text style = {styles.text}> Management</Text>
+                <Text style = {styles.text}>Management</Text>
 
 
             </TouchableOpacity>
@@ -136,6 +146,8 @@ const styles = StyleSheet.create({
         // flexDirection: 'row',
         alignItems: 'center',
         // backgroundColor: '#e6e6e6',
+        alignContent:'center',
+        alignSelf:'center',
         padding: 1,
         // paddingTop: 16,
         // marginBottom: 16,
@@ -150,7 +162,10 @@ const styles = StyleSheet.create({
         fontSize: 36,
         fontWeight: 'bold',
         marginBottom: 50,
-        textAlign: 'center'
+        textAlign: 'center',
+        alignSelf:'center',
+        alignContent:'center',
+        alignItems:'center'
         
 
 
@@ -171,6 +186,7 @@ const styles = StyleSheet.create({
         flex: 1,
         alignContent: 'center',
         alignItems: 'center',  
+        alignSelf:'center',
         marginTop: 50,         
         marginBottom: 20, 
 
@@ -180,11 +196,12 @@ const styles = StyleSheet.create({
 
     image: {
 
-        width: 110,
-        height: 110,
+        width: 150,
+        height: 150,
         marginRight: 10,
         marginTop: 50,
         borderRadius: 8,
+        alignSelf:'center'
     
 
 

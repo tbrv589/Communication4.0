@@ -1,5 +1,5 @@
-import React, { useEffect, useRef } from 'react';
-import { View, Text, Image, Animated, StyleSheet, StyleProp, ViewStyle } from 'react-native';
+import React, { useEffect, useRef, useState } from 'react';
+import {View, Image, Animated, StyleSheet, StyleProp, ViewStyle, Text} from 'react-native';
 
 interface AvatarSpeakerProps {
   message: string;
@@ -8,44 +8,80 @@ interface AvatarSpeakerProps {
 }
 
 export const AvatarSpeaker = ({ message, avatarSource, style }: AvatarSpeakerProps) => {
-  const fadeAnim = useRef(new Animated.Value(0)).current;
+  const words = message.split(' ');
+  const [animations, setAnimations] = useState<Animated.Value[]>([]);
 
   useEffect(() => {
-    Animated.timing(fadeAnim, {
-      toValue: 1,
-      duration: 800,
-      useNativeDriver: true,
-    }).start();
-  }, []);
+    const newAnimations = words.map(() => new Animated.Value(0));
+    setAnimations(newAnimations);
+
+    const animationsSequence = newAnimations.map((anim, i) =>
+      Animated.timing(anim, {
+        toValue: 1,
+        duration: 150,
+        delay: i * 150,
+        useNativeDriver: true,
+      })
+    );
+
+    Animated.stagger(250, animationsSequence).start();
+  }, [message]);
 
   return (
-    <Animated.View style={[styles.container, style, { opacity: fadeAnim }]}>
+    <View style={[styles.container, style]}>
       <View style={styles.avatarWrapper}>
         <Image source={avatarSource} style={styles.avatar} />
       </View>
       <View style={styles.bubble}>
-        <Text style={styles.message}>{message}</Text>
+        <View style={styles.messageContainer}>
+          {words.map((word, index) => {
+            const animatedValue = animations[index];
+            if (!animatedValue) return null;
+
+            return (
+              <Animated.Text
+                key={index}
+                style={[
+                  styles.message,
+                  {
+                    opacity: animatedValue,
+                    transform: [
+                      {
+                        translateY: animatedValue.interpolate({
+                          inputRange: [0, 1],
+                          outputRange: [10, 0],
+                        }),
+                      },
+                    ],
+                  },
+                ]}
+              >
+                {word + ' '}
+              </Animated.Text>
+            );
+          })}
+        </View>
       </View>
-    </Animated.View>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-
     flexDirection: 'row',
     alignItems: 'center',
     padding: 12,
     paddingTop: 40,
     margin: 10,
   },
+  
   avatarWrapper: {
     width: 110,
     height: 110,
     left: -15,
     top: 35,
     borderRadius: 100,
-    borderColor : 'black',
+    borderColor: 'black',
     borderWidth: 2,
     backgroundColor: '#fff',
     justifyContent: 'center',
@@ -59,9 +95,6 @@ const styles = StyleSheet.create({
     width: 150,
     height: 180,
     zIndex: 2,
-    // elevation: 5,
-
-   
   },
   bubble: {
     backgroundColor: '#fff',
@@ -72,6 +105,10 @@ const styles = StyleSheet.create({
     paddingRight: 20,
     zIndex: 1,
     flex: 1,
+  },
+  messageContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
   },
   message: {
     fontSize: 18,

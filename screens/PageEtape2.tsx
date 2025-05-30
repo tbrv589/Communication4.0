@@ -27,7 +27,7 @@ const PageEtape2 = () => {
             <View style = {styles.avatarContainer}>
             
                 <AvatarSpeaker 
-                        message="dialogue homepage motherfuck"
+                        message="dialogue homepage"
                         avatarSource={require('../assets/images/encore.png')}
                         style = {styles.avatar}
                 
