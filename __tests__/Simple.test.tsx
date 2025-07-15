@@ -2,17 +2,15 @@ import React from 'react';
 import { Text, View } from 'react-native';
 import renderer, { act } from 'react-test-renderer';
 
-const App = () => (
-  <View>
-    <Text>Test App</Text>
-  </View>
-);
-
-test('App minimal renders', () => {
+test('Simple Text renders', () => {
   let testInstance;
 
   act(() => {
-    testInstance = renderer.create(<App />);
+    testInstance = renderer.create(
+      <View>
+        <Text>Hello</Text>
+      </View>
+    );
   });
 
   expect(testInstance).toBeTruthy(); // PAS toJSON()
