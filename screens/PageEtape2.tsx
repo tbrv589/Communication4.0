@@ -5,7 +5,7 @@ import { useNavigation } from "@react-navigation/native";
 import Carrousel from "../components/Carrousel";
 import { ImageCarrousel } from "../components/elementcarrousel";
 import BottomBar from "../components/LowBarre";
-
+import DrawerButton from "../components/DrawerDesignButton";
 
 const PageEtape2 = () => {
 
@@ -22,13 +22,17 @@ const PageEtape2 = () => {
     return(
 
         <>
+
+        <DrawerButton />
         <SafeAreaView style={styles.SafeAreaView}>
+
+        
 
             <View style = {styles.avatarContainer}>
             
                 <AvatarSpeaker 
                         message="dialogue homepage"
-                        avatarSource={require('../assets/images/encore.png')}
+                        avatarSource={require('../assets/images/IconePersonne.png')}
                         style = {styles.avatar}
                 
                         />

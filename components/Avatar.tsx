@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {View, Image, Animated, StyleSheet, StyleProp, ViewStyle, Text} from 'react-native';
 
 interface AvatarSpeakerProps {
@@ -8,7 +8,7 @@ interface AvatarSpeakerProps {
 }
 
 export const AvatarSpeaker = ({ message, avatarSource, style }: AvatarSpeakerProps) => {
-  const words = message.split(' ');
+  const words = (message ?? "").split(' ');
   const [animations, setAnimations] = useState<Animated.Value[]>([]);
 
   useEffect(() => {
@@ -78,8 +78,8 @@ const styles = StyleSheet.create({
   avatarWrapper: {
     width: 110,
     height: 110,
-    left: -15,
-    top: 35,
+    left: -10,
+    top: 55,
     borderRadius: 100,
     borderColor: 'black',
     borderWidth: 2,

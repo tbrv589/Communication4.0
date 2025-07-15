@@ -6,7 +6,8 @@ import BottomBar from '../../components/LowBarre';
 import DrawerButton from '../../components/DrawerDesignButton';
 
 
-const UIMM = () => {
+
+const EPSI = () => {
 
     const navigation = useNavigation<any>();
     const Envoiepage = (page : string) => {
@@ -42,26 +43,26 @@ const UIMM = () => {
   return (
     
     <SafeAreaView style = {styles.SafeAreaView}>
-
+        
         <DrawerButton />
 
         <ScrollView contentContainerStyle = {styles.scroll}>
 
             <View style = {styles.container} >
 
-            <Image style = {styles.logo} source={require('../../assets/images/logoPOLEFO.png')} />
+            <Image style = {styles.logo} source={require('../../assets/images/logoEPSI.png')} />
 
             </View>
 
             <View style = {styles.containerTextTitre}>
 
-                <Text style = {styles.TextTitre}> Centre de formation par apprentissage dans l'industrie </Text>
+                <Text style = {styles.TextTitre}> L’école d’ingénierie informatique à Auxerre </Text>
 
             </View>
 
             <View style = {styles.containerText}> 
 
-                <Text style = {styles.TextDescription}>Le Pôle formation 58-89, forme aux metiers d'avenir de l'industrie. Les formations sont accessibles post 3eme sur nos sites d'Auxerre et de Nevers  </Text>
+                <Text style = {styles.TextDescription}>Située à 1h30 de Paris, la ville d'Auxerre offre un riche patrimoine  historique et naturel. Ville à taille humaine, Auxerre accueille plus de 3 000 étudiants chaque année.</Text>
 
             </View>
 
@@ -73,7 +74,7 @@ const UIMM = () => {
 
             <SafeAreaView style = {styles.zoneCoordo}>
 
-                <Text style = {styles.TextDetailCordo}> AUXERRE 03.86.49.26.20 {'\n'} NEVERS 03.86.59.73.84 {'\n'} recrutement@pole-formation.net </Text>
+                <Text style = {styles.TextDetailCordo}> AUXERRE 03.86.49.26.20{'\n'} recrutement@pole-formation.net </Text>
 
                 <TouchableOpacity style={styles.containerliensite} onPress={openWebUrl}>
             <Text style={styles.liensite}>www.pole-formation.net</Text>
@@ -121,8 +122,8 @@ const styles = StyleSheet.create({
         paddingTop: 35
     },
     logo:{
-        height: 130,
-        width: 130
+        height: 200,
+        width: 200
     },
 
     TextTitre:{
@@ -245,4 +246,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default UIMM
+export default EPSI

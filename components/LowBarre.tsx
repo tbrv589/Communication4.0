@@ -2,13 +2,14 @@ import React from 'react';
 import { SafeAreaView, StyleSheet, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import StackNavigator from '../src/navigation/stack';
 
 const lowbarre = [
   { screen: 'PageEcole', iconName: 'graduation-cap' },
-  { screen: 'PageEtape1', iconName: 'sort-numeric-asc' },
-  { screen: 'PageEtape2', iconName: 'sort-numeric-desc' },
-  { screen: 'PageEtape3', iconName: 'tasks'},
-  { screen: 'PageCampus', iconName: 'map-marker'},
+  { screen: 'PageCampus', iconName: 'sort-numeric-asc' },
+  { screen: 'HomeScreen', iconName: 'sort-numeric-desc' },
+  { screen: 'PagePlanInscrip', iconName: 'tasks'},
+  { screen: 'nada', iconName: 'map-marker'},
 ];
 
 

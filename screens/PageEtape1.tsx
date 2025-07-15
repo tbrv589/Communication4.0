@@ -5,6 +5,7 @@ import { StyleSheet, View, ScrollView, Text } from "react-native";
 import { AvatarSpeaker } from "../components/Avatar";
 import {TouchableOpacity} from 'react-native';
 import BottomBar from "../components/LowBarre";
+import DrawerButton from "../components/DrawerDesignButton";
 
 
 
@@ -24,13 +25,20 @@ const PageEtape1 = () => {
     return(
 
         <>
+                
+        
+                
+
             <SafeAreaView style={styles.SafeAreaView}>
 
+            <DrawerButton />
+
+    
                 <View style = {styles.avatarContainer}>
 
                         <AvatarSpeaker 
                                 message="dialogue homepage"
-                                avatarSource={require('../assets/images/encore.png')}
+                                avatarSource={require('../assets/images/IconePersonne.png')}
                                 style = {styles.avatar}
                         
                                 />
@@ -41,7 +49,7 @@ const PageEtape1 = () => {
                 
                 <ScrollView contentContainerStyle = {styles.scroll}>
 
-                    <TouchableOpacity style = {styles.zone} onPress={() => EnvoiePage('HomeScreen') //a définir page
+                    <TouchableOpacity style = {styles.zone} onPress={() => EnvoiePage('HomeScreen')
                     }>
 
                         <View style = {styles.container}>

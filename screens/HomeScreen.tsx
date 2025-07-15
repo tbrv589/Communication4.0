@@ -33,7 +33,7 @@ const HomeScreen = () => {
 
         <AvatarSpeaker
         message="dialogue homepage "
-        avatarSource={require('../assets/images/encore.png')}
+        avatarSource={require('../assets/images/IconePersonne.png')}
       />
       </View>
 

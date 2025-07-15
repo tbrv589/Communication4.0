@@ -4,6 +4,7 @@ import { useNavigation } from "@react-navigation/native";
 import { AvatarSpeaker } from "../components/Avatar";
 import {wd, hd} from '../utils/responsive'
 import BottomBar from "../components/LowBarre";
+import DrawerButton from "../components/DrawerDesignButton";
 
 
 const PageEtape3 = () => {
@@ -23,11 +24,13 @@ const PageEtape3 = () => {
       <>
       <SafeAreaView style={styles.SafeAreaView}>
 
+        <DrawerButton />
+
           <View style = {styles.avatarContainer}>
           
               <AvatarSpeaker 
                       message="dialogue homepage"
-                      avatarSource={require('../assets/images/encore.png')}
+                      avatarSource={require('../assets/images/IconePersonne.png')}
                       style = {styles.avatar}
               
                       />

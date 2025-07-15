@@ -6,7 +6,7 @@ import BottomBar from '../../components/LowBarre';
 import DrawerButton from '../../components/DrawerDesignButton';
 
 
-const UIMM = () => {
+const IFAG = () => {
 
     const navigation = useNavigation<any>();
     const Envoiepage = (page : string) => {
@@ -245,4 +245,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default UIMM
+export default IFAG

@@ -1,7 +1,11 @@
-import React, { useState } from 'react';
-import { SafeAreaView, StyleSheet, View, Text, TouchableOpacity } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { SafeAreaView, StyleSheet, Text, TouchableOpacity, ScrollView } from 'react-native';
 import { Calendar, LocaleConfig } from 'react-native-calendars';
-// import BottomBar from '../components/LowBarre';
+import axios from 'axios';
+import { any } from 'three/tsl';
+import DrawerButton from '../components/DrawerDesignButton';
+import { View } from '@react-three/drei';
+
 
 LocaleConfig.locales['fr'] = {
   monthNames: [
@@ -20,31 +24,51 @@ LocaleConfig.locales['fr'] = {
 };
 LocaleConfig.defaultLocale = 'fr';
 
-const events = [
-  {
-    title: 'Escape Game',
-    color: '#51AFD0',
-    dates: ['2025-04-03', '2025-04-04', '2025-04-05', '2025-04-06'],
-  },
-  {
-    title: 'Jeudis connecté',
-    color: '#DBE18D',
-    dates: ['2025-04-13', '2025-04-20', '2025-04-27'],
-  },
-  {
-    title: 'caca popo',
-    color: '#51D077',
-    dates: ['2025-04-09', '2025-04-10'],
-  },
-  {
-    title: 'partagé partagé',
-    color: '#EB787A',
-    dates: ['2025-04-29', '2025-04-30'],
-  },
-];
+
+
+type Evenement = {
+  id: number;
+  titre: string;
+  date_debut: string;
+  date_fin: string;
+  heure: string;
+  couleur: string;
+};
 
 const PagePlanInscrip: React.FC = () => {
   const [selected, setSelected] = useState<string>('');
+  const [evenements, setEvenements] = useState<Evenement[]>([]);
+
+  useEffect(() => {
+    const fetchEvenements = async () => {
+      try {
+        const res = await axios.get('http://10.0.2.2:1337/api/evenements');
+        console.log('📦 Données brutes reçues :', res.data);
+
+
+
+        const couleursEvenement = ['#51AFD0', '#DBE18D', '#51D077', '#EB787A']
+
+        const data = res.data.data;
+
+        const formatted = data.map((item: any, index: number) => ({
+          id: item.id,
+          titre: item.Titre,
+          date_debut: item.Date,
+          date_fin: item.Date,
+          heure: item.heure,
+          couleur: couleursEvenement[index % couleursEvenement.length]
+        }));
+  
+        console.log('Événements récupérés:', formatted);
+        setEvenements(formatted);
+      } catch (err) {
+        console.error('Erreur récupération événements :', err);
+      }
+    };
+
+    fetchEvenements();
+  }, []);
 
   const handleDayPress = (day: { dateString: string }) => {
     setSelected(day.dateString);
@@ -53,129 +77,108 @@ const PagePlanInscrip: React.FC = () => {
   const getMarkedDates = () => {
     const markings: { [key: string]: any } = {};
 
-    events.forEach(event => {
-      event.dates.forEach(date => {
-        markings[date] = {
+    evenements.forEach(event => {
+      const start = new Date(event.date_debut);
+      const end = new Date(event.date_fin);
+      const current = new Date(start);
+
+      while (current <= end) {
+        const dateStr = current.toISOString().split('T')[0];
+        markings[dateStr] = {
           selected: true,
-          selectedColor: event.color,
-          disableTouchEvent: false,
+          selectedColor: event.couleur,
+          disableTouchEvent: false
         };
-      });
+        current.setDate(current.getDate() + 1);
+      }
     });
 
     if (selected) {
       markings[selected] = {
         ...(markings[selected] || {}),
         selected: true,
-        selectedColor: 'black',
-        disableTouchEvent: true,
+        selectedColor: 'white',
+        disableTouchEvent: true
       };
     }
 
     return markings;
   };
 
+  const formatDate = (iso: string) => {
+    const d = new Date(iso);
+    return `${d.getDate().toString().padStart(2, '0')}-${(d.getMonth() + 1).toString().padStart(2, '0')}-${d.getFullYear()}`;
+  };
+
   return (
-    <SafeAreaView style={styles.SafeAreaView}>
+
+    
+    <SafeAreaView style={styles.safeArea}>
+
+     <DrawerButton />
 
       <Calendar
-        style={styles.Calendar}
+        style={styles.calendar}
         onDayPress={handleDayPress}
         markedDates={getMarkedDates()}
+        markingType="period"
         theme={{}}
       />
 
-      <TouchableOpacity style={styles.Event1} >
-        <Text style={styles.textEvent}>Escape Game</Text>
-        <Text style={styles.DateEvent}>03-06 Avril 2025</Text>
-        <Text style={styles.horaireEvent}>8:00 - 12:00</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity style={styles.Event2}>
-        <Text style={styles.textEvent}>Jeudis connecté</Text>
-        <Text style={styles.DateEvent}>13-27 Avril 2025</Text>
-        <Text style={styles.horaireEvent}>8:00 - 12:00</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity style={styles.Event3}>
-        <Text style={styles.textEvent}>caca popo</Text>
-        <Text style={styles.DateEvent}>09-10 Avril 2025</Text>
-        <Text style={styles.horaireEvent}>8:00 - 12:00</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity style={styles.Event4}>
-        <Text style={styles.textEvent}>partagé partagé</Text>
-        <Text style={styles.DateEvent}>29-30 Avril 2025</Text>
-        <Text style={styles.horaireEvent}>8:00 - 12:00</Text>
-      </TouchableOpacity>
-
-      {/* <BottomBar /> */}
+      <ScrollView contentContainerStyle={styles.scrollContainer}>
+        {evenements.map((event) => (
+          <TouchableOpacity
+            key={event.id}
+            style={[styles.eventBlock, { backgroundColor: event.couleur || 'black' }]}
+          >
+            <Text style={styles.textEvent}>{event.titre}</Text>
+            <Text style={styles.dateEvent}>
+              {formatDate(event.date_debut)} - {formatDate(event.date_fin)}
+            </Text>
+            <Text style={styles.horaireEvent}>{event.heure}</Text>
+          </TouchableOpacity>
+        ))}
+      </ScrollView>
     </SafeAreaView>
+    
   );
 };
 
 const styles = StyleSheet.create({
-  SafeAreaView: {
-    paddingTop: 50,
+  safeArea: {
+    paddingTop: 100,
+    flex: 1,
   },
-  Calendar: {
-    borderRadius: 50,
-  },
-  Event1: {
-    backgroundColor: '#51AFD0',
-    height: 72,
-    width: 315,
+  calendar: {
     borderRadius: 10,
-    left: 35,
-    top: 25,
-    marginVertical: 10
+    marginBottom: 20,
+    borderColor: 'black',
+    borderWidth: 2
   },
-  Event2: {
-    backgroundColor: '#DBE18D',
-    height: 72,
-    width: 315,
-    borderRadius: 10,
-    left: 35,
-    top: 25,
-    marginVertical: 10
+  scrollContainer: {
+    paddingHorizontal: 20,
+    paddingBottom: 20,
   },
-  Event3: {
-    backgroundColor: '#51D077',
+  eventBlock: {
     height: 72,
-    width: 315,
     borderRadius: 10,
-    left: 35,
-    top: 25,
-    marginVertical: 10
-  },
-  Event4: {
-    backgroundColor: '#EB787A',
-    height: 72,
-    width: 315,
-    borderRadius: 10,
-    left: 35,
-    top: 25,
-    marginVertical: 10
+    marginBottom: 15,
+    paddingHorizontal: 20,
+    justifyContent: 'center',
   },
   textEvent: {
     color: 'white',
     fontSize: 16,
-    fontFamily: 'cochin',
-    left: 45,
-    top: 15,
-    position: 'absolute'
+    fontWeight: '600',
   },
-  DateEvent: {
-    fontSize: 11,
-    top: 45,
-    left: 45,
-    position: 'absolute'
+  dateEvent: {
+    fontSize: 12,
+    color: 'white',
+    marginTop: 5,
   },
   horaireEvent: {
-    fontSize: 11,
-    top: 45,
-    left: 160,
-    position: 'absolute'
+    fontSize: 12,
+    color: 'white',
   },
 });
 
