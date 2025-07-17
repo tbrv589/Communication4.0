@@ -5,6 +5,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { StyleSheet } from 'react-native';
 import DrawerDesign from '../../components/DrawerDesign';
 
+
 const Drawer = createDrawerNavigator();
 
 const DrawerNavigator = () => {
@@ -58,5 +59,5 @@ const styles = StyleSheet.create({
 
 
 })
-
+console.log('DrawerNavigator defined:', DrawerNavigator);
 export default DrawerNavigator;

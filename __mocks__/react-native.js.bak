@@ -1,0 +1,11 @@
+const ReactNative = jest.requireActual('react-native');
+
+module.exports = {
+  ...ReactNative,
+  StyleSheet: ReactNative.StyleSheet,
+  Animated: {
+    timing: jest.fn(() => ({
+      start: jest.fn(),
+    })),
+  },
+};

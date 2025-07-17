@@ -18,9 +18,10 @@ const BottomBar = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      {lowbarre.map((item) => (
+      {lowbarre.map((item) => ( 
         <TouchableOpacity
           key={item.screen}
+          testID={`button-${item.screen}`}
           style={styles.button}
           onPress={() => navigation.navigate(item.screen)}
         >

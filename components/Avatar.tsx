@@ -30,7 +30,7 @@ export const AvatarSpeaker = ({ message, avatarSource, style }: AvatarSpeakerPro
   return (
     <View style={[styles.container, style]}>
       <View style={styles.avatarWrapper}>
-        <Image source={avatarSource} style={styles.avatar} />
+        <Image testID="avatar-image" source={avatarSource} style={styles.avatar} />
       </View>
       <View style={styles.bubble}>
         <View style={styles.messageContainer}>
