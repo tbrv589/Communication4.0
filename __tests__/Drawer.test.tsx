@@ -9,7 +9,7 @@ jest.mock('../src/navigation/stack', () => {
   return {
     __esModule: true,
     default: () => null,
-  };
+  }; 
 });
 
 jest.mock('@react-navigation/drawer', () => {
@@ -21,7 +21,6 @@ jest.mock('@react-navigation/drawer', () => {
       const Navigator = ({ children }: any) => <>{children}</>;
       const Screen = ({ options }: any) => <Text>{options.drawerLabel}</Text>;
 
-      return { Navigator, Screen };
     },
   };
 });
@@ -34,9 +33,9 @@ describe('DrawerNavigator', () => {
       </NavigationContainer>
     );
 
-    expect(getByText('🏠 Accueil')).toBeTruthy();
-    expect(getByText('🧩 Étape 1')).toBeTruthy();
-    expect(getByText('🧩 Étape 2')).toBeTruthy();
-    expect(getByText('🧩 Étape 3')).toBeTruthy();
+    expect(getByText('Accueil')).toBeTruthy();
+    expect(getByText('Étape 1')).toBeTruthy();
+    expect(getByText('Étape 2')).toBeTruthy();
+    expect(getByText('Étape 3')).toBeTruthy();
   });
 });

@@ -1,7 +1,7 @@
+// import des différentes librairies react et component rso
 import React, { useEffect, useState } from "react";
 import {StyleSheet, ScrollView,SafeAreaView, View, Image, Text, TouchableOpacity, ActivityIndicator,} from "react-native";
 import { useNavigation } from "@react-navigation/native";
-// import { SafeAreaView } from "react-native-safe-area-context";
 import BottomBar from "../components/LowBarre";
 import DrawerButton from "../components/DrawerDesignButton";
 import { AvatarSpeaker } from "../components/Avatar";
@@ -9,11 +9,16 @@ import { getAvatarMessage, getEcoles } from "../services/ecolesService";
 import {wd, hd} from "../utils/responsive"
 
 const PageEcole = () => {
+  
+  // états locaux pour les messages ecoles et indicateur de loading
   const [message, setMessage] = useState<string | null>(null);
   const [ecoles, setEcoles] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
-  const navigation = useNavigation<any>();
+  
+  // hook pour la navigation
+  const navigation = useNavigation<any>();  
 
+   // fonction executé au chargement de la page pour récuperer les evenements
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -34,10 +39,12 @@ const PageEcole = () => {
     fetchData();
   }, []);
 
+  // navigue vers la page spécifié par son nom
   const EnvoiePage = (page: string) => {
     navigation.navigate(page);
   };
 
+   // indicateur de loading tant que les données ne sont pas chargé
   if (loading) {
     return (
       <View style={styles.loader}>
@@ -49,8 +56,10 @@ const PageEcole = () => {
   return (
     <>
       <SafeAreaView style={styles.SafeAreaView}>
+        {/* import du drawer */}
         <DrawerButton />
 
+      {/* affiche l'avatar avec le message si disponible */}
         <View style={styles.avatarContainer}>
           {message && (
             <AvatarSpeaker
@@ -86,10 +95,12 @@ const PageEcole = () => {
   const imageUrlIFAG = logoIFAG ? `http://10.0.2.2:1337${logoIFAG}` : null;
 
   const logoEPSI = item?.logoEPSI?.url 
-  const imageUrlEPSI = logoITII ? `http://10.0.2.2:1337${logoEPSI}` : null;
+  const imageUrlEPSI = logoEPSI ? `http://10.0.2.2:1337${logoEPSI}` : null;
 
   return (
     <React.Fragment key={item.id || index}>
+
+      {/* ----- UIMM ----- */}
       <TouchableOpacity
         style={styles.zone}
         onPress={() => EnvoiePage("UIMM")}
@@ -111,6 +122,7 @@ const PageEcole = () => {
 
       <View style={styles.separateur} />
 
+      {/* ----- ITII ----- */}
       <TouchableOpacity
         style={styles.zone}
         onPress={() => EnvoiePage("ITII")}
@@ -132,6 +144,7 @@ const PageEcole = () => {
 
       <View style={styles.separateur} />
 
+        {/* ----- EPSI ----- */}
       <TouchableOpacity
         style={styles.zone}
         onPress={() => EnvoiePage("EPSI")}
@@ -153,6 +166,7 @@ const PageEcole = () => {
 
       <View style={styles.separateur} />
 
+        {/* ----- IFAG ----- */}
       <TouchableOpacity
         style={styles.zone}
         onPress={() => EnvoiePage("IFAG")}
@@ -174,6 +188,7 @@ const PageEcole = () => {
 
       <View style={styles.separateur} />
 
+        {/* ----- IET ----- */}
        <TouchableOpacity
         style={styles.zone}
         onPress={() => EnvoiePage("IET")}
@@ -201,11 +216,14 @@ const PageEcole = () => {
         </ScrollView>
       </SafeAreaView>
 
+ {/* import de la nav barre */}
       <BottomBar />
     </>
+    
   );
 };
 
+// styles pour la page, utilisant les fonctions wd et hd pour le responsive
 const styles = StyleSheet.create({
   SafeAreaView: {
     flex: 1,
@@ -247,7 +265,6 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     alignSelf: "center",
     resizeMode: 'contain',
-    
   },
   avatar: {
     position: "absolute",
@@ -261,4 +278,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default PageEcole;
+export default PageEcole; 

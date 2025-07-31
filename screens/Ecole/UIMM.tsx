@@ -4,7 +4,12 @@ import React from 'react'
 import { useNavigation } from '@react-navigation/native';
 import BottomBar from '../../components/LowBarre';
 import DrawerButton from '../../components/DrawerDesignButton';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import { screen } from 'three/tsl';
 
+// const icone = [
+//  iconName
+// ]
 
 const UIMM = () => {
 
@@ -81,10 +86,29 @@ const UIMM = () => {
 
             </SafeAreaView>
 
+            
+
             <View style = {styles.containertextReseau1}>
 
                 <Text style = {styles.textReseau1}>REJOINS-NOUS SUR LES RESEAUX !</Text>
+            </View>
 
+            <View style = {styles.containerReseauxPrime}>
+
+            <View style = {styles.containerReseaux1}> 
+                <FontAwesome name='instagram' size={15} color='black' />
+                <Text style = {styles.reseaux}> Pole-formation58-89</Text>
+            </View>
+
+            <View style = {styles.containerReseaux2}> 
+                <FontAwesome  name='linkedin' size={15} color='black' />
+                <Text style = {styles.reseaux}> Pole-formation58-89</Text>
+            </View>
+
+            <View style = {styles.containerReseaux2}> 
+                <FontAwesome name='facebook' size={15} color='blue' />
+                <Text style = {styles.reseaux}> Pole-formation58-89</Text>
+            </View>
             </View>
 
         </ScrollView>
@@ -242,6 +266,34 @@ const styles = StyleSheet.create({
         left: 10,
         height: 50,
         width: 50
+    },
+
+    reseaux:{
+
+        color: 'blue'
+    },
+
+    containerReseaux1:{
+
+        alignContent:'center',
+        flexDirection: 'row'
+    },
+
+    containerReseaux2:{
+        flexDirection: 'row',
+        paddingTop: 10
+
+    },
+
+    containerReseaux3:{
+        flexDirection: 'row',
+        
+
+    },
+
+    containerReseauxPrime:{
+        alignItems: 'center',
+        paddingTop: 15
     }
 })
 

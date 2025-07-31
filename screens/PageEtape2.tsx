@@ -31,7 +31,7 @@ const PageEtape2 = () => {
             <View style = {styles.avatarContainer}>
             
                 <AvatarSpeaker 
-                        message="dialogue homepage"
+                        message="dialogue PageEtape2"
                         avatarSource={require('../assets/images/IconePersonne.png')}
                         style = {styles.avatar}
                 
@@ -140,12 +140,12 @@ const styles = StyleSheet.create({
     SafeAreaView: {
 
         flex: 1,
-        paddingTop: 210,
+        paddingTop: 230,
     },
 
     scroll : {
 
-
+        
         paddingTop: 50,
         paddingHorizontal: 16
     },

@@ -1,8 +1,9 @@
 import React from "react";
-import { Image, StyleSheet, View, Text, TouchableOpacity } from "react-native";
+import { Image, StyleSheet, View, Text, TouchableOpacity,  } from "react-native";
 import { DrawerContentScrollView, DrawerItem } from "@react-navigation/drawer";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { wd, hd } from "../utils/responsive"; 
+
 
 const DrawerDesign = ({ state, descriptors, navigation, ...rest }: any) => {
   return (
@@ -16,7 +17,7 @@ const DrawerDesign = ({ state, descriptors, navigation, ...rest }: any) => {
 
       <DrawerContentScrollView {...rest} contentContainerStyle={styles.scrollContainer}>
         {state.routes.map((route: any, index: number) => {
-          const { drawerLabel, title } = descriptors[route.key].options;
+          const { drawerLabel, title, drawerIcon } = descriptors[route.key].options;
           const label = drawerLabel ?? title ?? route.name;
           const isActive = state.index === index;
 
@@ -25,14 +26,15 @@ const DrawerDesign = ({ state, descriptors, navigation, ...rest }: any) => {
               <DrawerItem
                 label={label}
                 focused={isActive}
+                icon={drawerIcon}
                 onPress={() => navigation.navigate(route.name)}
                 labelStyle={styles.label}
                 activeTintColor="white"
                 inactiveTintColor="white"
               />
-              {(label === '🏠 Accueil' || label === "🧩 Étape 1" || label === "🧩 Étape 2") && (
-                <View style={styles.separator} />
-              )}
+              {(label === 'Accueil' || label === " Étape 1" || label === " Étape 2" || label === " Étape 3") && (
+                <View style={styles.separator} /> )
+              }
             </View>
           );
         })}
@@ -40,7 +42,7 @@ const DrawerDesign = ({ state, descriptors, navigation, ...rest }: any) => {
 
       <View style={styles.footer}>
         <TouchableOpacity>
-          <Text style={styles.footerLink}>Plus d'informations ? </Text>
+          <Text style={styles.footerLink}>Nous Contacter </Text>
         </TouchableOpacity>
         <TouchableOpacity>
           <Text style={styles.footerLink}>Plus d'informations ? </Text>

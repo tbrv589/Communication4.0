@@ -12,7 +12,7 @@ export const ImageCarrousel = [
 
     {
         title: "Premier",
-        image: require('../assets/images/phototest1.png'),
+        image: require('../assets/images/photo_test11.png'),
         description: 'description caroussee'
 
 
@@ -20,7 +20,7 @@ export const ImageCarrousel = [
 
     {
         title: "deuxieme",
-        image: require('../assets/images/phototest2.png'),
+        image: require('../assets/images/photo_test22.png'),
         description: 'description caroussee'
 
 
@@ -28,15 +28,15 @@ export const ImageCarrousel = [
 
     {
         title: "troisieme",
-        image: require('../assets/images/3ckiparle.png'),
+        image: require('../assets/images/33ckiparle.png'),
         description: 'description caroussee'
 
 
     },
 
     {
-        title: "quatrieme",
-        image: require('../assets/images/epsi.png'),
+        title: "Soirée Post Bac",
+        image: require('../assets/images/epsii.png'),
         description: 'description caroussee'
 
 

@@ -41,24 +41,24 @@ const PageEtape3 = () => {
 
       <ScrollView contentContainerStyle = {styles.scroll}>
 
-        <View>
+        {/* <View>
 
         <Image style = {styles.ImageCV} source={require('../assets/images/3ckiparle.png')}  />
 
-        </View>
+        </View> */}
       
-        <View>
+        {/* <View>
 
           <Text style= {styles.Text_CV}>Créer ta vidéo CV !</Text> 
 
 
-        </View>
+        </View> */}
       
 
 
       <View style={styles.separateur} />
 
-      <TouchableOpacity style = {styles.zone} onPress={() => EnvoiePage('HomeScreen') //a définir page
+      <TouchableOpacity style = {styles.zone} onPress={() => EnvoiePage('HomeScreen') 
                           }>
       
       <View style = {styles.container}>

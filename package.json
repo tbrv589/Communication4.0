@@ -9,6 +9,11 @@
     "start": "react-native start",
     "test": "jest"
   },
+  "overrides": {
+    "lucide-react-native": {
+      "react": "^19"
+    }
+  },
   "dependencies": {
     "@react-native-masked-view/masked-view": "^0.3.2",
     "@react-navigation/drawer": "^7.4.2",

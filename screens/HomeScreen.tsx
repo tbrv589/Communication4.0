@@ -2,20 +2,41 @@
 // Importation--------------------------------------------------------------------------------------------------
 
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Text, View, StyleSheet, Image } from 'react-native';
 import { BackgroundWrapper } from '../components/BackgroundWrapper';
 import BottomBar from '../components/LowBarre';
 import { wd, hd } from '../utils/responsive';
 import { AvatarSpeaker } from '../components/Avatar';
-import ButtonHS from '../components/ButtonHS';
-// import DrawerNav from '../components/DrawerNav';
+import { getAvatarMessage } from '../services/homepageService';
 
 
 //--------------------------------------------------------------------------------------------------
 
 
 const HomeScreen = () => {
+
+    const [messageHomeScreen, setMessage] = useState<string | null>(null)
+    const [loading, setLoading] = useState(true)
+
+    useEffect(() => {
+      const fetchData = async () => {
+
+        try{
+          const msg = await getAvatarMessage();
+          setMessage(msg)
+        }
+        catch (error) {
+          console.error("erreur de chargement", error)
+          setMessage("erreur de chargement");
+        }
+        finally{
+          setLoading(false)
+        }
+      }
+      fetchData()
+    }, [])
+
   return (
     <BackgroundWrapper>
 
@@ -31,10 +52,13 @@ const HomeScreen = () => {
 
         <Text style={styles.title}>Pole Formation 58-89{"\n"}& Ses écoles / instituts</Text>
 
+        {messageHomeScreen && (
         <AvatarSpeaker
-        message="dialogue homepage "
+        message= {messageHomeScreen}
         avatarSource={require('../assets/images/IconePersonne.png')}
-      />
+      /> )
+        }
+        
       </View>
 
 
@@ -92,12 +116,12 @@ const styles = StyleSheet.create({
 
   },
 
-  headerContainer: {    
+  headerContainer: {
 
     flex: 1,
     alignContent: 'center',
-    alignItems: 'center',  
-    marginTop: 10,         
+    alignItems: 'center',
+    marginTop: 10,
   },
 
 

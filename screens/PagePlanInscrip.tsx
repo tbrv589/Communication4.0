@@ -1,11 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import { SafeAreaView, StyleSheet, Text, TouchableOpacity, ScrollView } from 'react-native';
-import { Calendar, LocaleConfig } from 'react-native-calendars';
-import axios from 'axios';
-import { any } from 'three/tsl';
-import DrawerButton from '../components/DrawerDesignButton';
-import { View } from '@react-three/drei';
 
+// import des différentes librairies react et component perso
+
+import React, { useEffect, useState } from 'react';
+import { SafeAreaView, StyleSheet, Text, TouchableOpacity, ScrollView, View } from 'react-native';
+import { Calendar, LocaleConfig } from 'react-native-calendars';
+import DrawerButton from '../components/DrawerDesignButton';
+import BottomBar from '../components/LowBarre';
+import { fetchEvenements, formatDate, formaHeure, Evenement } from '../services/PagePlanInscripService';
+import {wd, hd} from '../utils/responsive'
+
+
+// configure le calendrier en francais
 
 LocaleConfig.locales['fr'] = {
   monthNames: [
@@ -22,164 +27,153 @@ LocaleConfig.locales['fr'] = {
   dayNamesShort: ['Dim.', 'Lun.', 'Mar.', 'Mer.', 'Jeu.', 'Ven.', 'Sam.'],
   today: "Aujourd'hui"
 };
-LocaleConfig.defaultLocale = 'fr';
+LocaleConfig.defaultLocale = 'fr'; // applique en francais
 
 
+const PagePlanInscrip = () => {
 
-type Evenement = {
-  id: number;
-  titre: string;
-  date_debut: string;
-  date_fin: string;
-  heure: string;
-  couleur: string;
-};
-
-const PagePlanInscrip: React.FC = () => {
+  // stock les dates sélectionné par l'utilisateur dans le calendrier
   const [selected, setSelected] = useState<string>('');
+  // contient la liste des evenements récupérés par l'API
   const [evenements, setEvenements] = useState<Evenement[]>([]);
 
+    // fonction executé au chargement de la page pour récuperer les evenements
   useEffect(() => {
-    const fetchEvenements = async () => {
-      try {
-        const res = await axios.get('http://10.0.2.2:1337/api/evenements');
-        console.log('📦 Données brutes reçues :', res.data);
-
-
-
-        const couleursEvenement = ['#51AFD0', '#DBE18D', '#51D077', '#EB787A']
-
-        const data = res.data.data;
-
-        const formatted = data.map((item: any, index: number) => ({
-          id: item.id,
-          titre: item.Titre,
-          date_debut: item.Date,
-          date_fin: item.Date,
-          heure: item.heure,
-          couleur: couleursEvenement[index % couleursEvenement.length]
-        }));
-  
-        console.log('Événements récupérés:', formatted);
-        setEvenements(formatted);
-      } catch (err) {
-        console.error('Erreur récupération événements :', err);
-      }
+    const getData = async () => {
+      const data = await fetchEvenements(); // appel de l'api pour récupérer les evenements
+      setEvenements(data); // mise a jour de l'état avec les données
     };
 
-    fetchEvenements();
+    getData();
   }, []);
 
+    // gère la selection des dates dans le calendrier, 
   const handleDayPress = (day: { dateString: string }) => {
     setSelected(day.dateString);
   };
 
-  const getMarkedDates = () => {
-    const markings: { [key: string]: any } = {};
+    // genere le style dots, couleurs sur les dates dans le calendrier
+ const getMarkedDates = () => {
+  const markings: { [key: string]: any } = {};
 
-    evenements.forEach(event => {
-      const start = new Date(event.date_debut);
-      const end = new Date(event.date_fin);
-      const current = new Date(start);
+  evenements.forEach(event => {
+    const dateStr = new Date(event.date_debut).toISOString().split('T')[0];
 
-      while (current <= end) {
-        const dateStr = current.toISOString().split('T')[0];
-        markings[dateStr] = {
-          selected: true,
-          selectedColor: event.couleur,
-          disableTouchEvent: false
-        };
-        current.setDate(current.getDate() + 1);
-      }
-    });
-
-    if (selected) {
-      markings[selected] = {
-        ...(markings[selected] || {}),
-        selected: true,
-        selectedColor: 'white',
-        disableTouchEvent: true
-      };
+    if (!markings[dateStr]) {
+      markings[dateStr] = { dots: [] };
     }
 
-    return markings;
-  };
+    markings[dateStr].dots.push({
+      color: event.couleur || event.couleursecondaire,
+    });
+  });
 
-  const formatDate = (iso: string) => {
-    const d = new Date(iso);
-    return `${d.getDate().toString().padStart(2, '0')}-${(d.getMonth() + 1).toString().padStart(2, '0')}-${d.getFullYear()}`;
-  };
+  // marque spécial pour la date séléctioner avec la couleur choisis
+  if (selected) {
+    if (!markings[selected]) markings[selected] = {};
+    markings[selected].selected = true;
+    markings[selected].selectedColor = 'black';
+    markings[selected].selectedTextColor = 'white';
+  }
+
+  return markings;
+};
+
 
   return (
-
-    
     <SafeAreaView style={styles.safeArea}>
+      {/* import du drawer */}
+      <DrawerButton />
 
-     <DrawerButton />
-
+      {/* affiche du calendrier avec marquage des dates et gestions des clics */}
       <Calendar
         style={styles.calendar}
-        onDayPress={handleDayPress}
-        markedDates={getMarkedDates()}
-        markingType="period"
-        theme={{}}
+        onDayPress={handleDayPress} // pour clique sur une date
+        markedDates={getMarkedDates()} // dates marquées des evenements
+        markingType="multi-dot" // plusieurs evenements par jours - multi-dot
       />
 
+      {/* affichage des cartes pour chaques événements */}
       <ScrollView contentContainerStyle={styles.scrollContainer}>
-        {evenements.map((event) => (
+        {evenements.map(event => (
           <TouchableOpacity
             key={event.id}
-            style={[styles.eventBlock, { backgroundColor: event.couleur || 'black' }]}
+            style={[styles.eventCard, { backgroundColor: event.couleur }]}
+            activeOpacity={0.8}
           >
-            <Text style={styles.textEvent}>{event.titre}</Text>
-            <Text style={styles.dateEvent}>
-              {formatDate(event.date_debut)} - {formatDate(event.date_fin)}
-            </Text>
-            <Text style={styles.horaireEvent}>{event.heure}</Text>
+            <View style={styles.textContainer}>
+              <Text style={styles.titreEvent}>{event.titre}</Text>
+              <Text style={styles.dateHeure}>
+                {formatDate(event.date_debut)} - {formatDate(event.date_fin)} {formaHeure(event.heure)}
+              </Text>
+              <View style={[styles.designEvent, { backgroundColor: event.couleursecondaire }]} />
+            </View>
           </TouchableOpacity>
         ))}
       </ScrollView>
-    </SafeAreaView>
-    
+ 
+  {/* import de la nav barre */}
+      <BottomBar /> 
+    </SafeAreaView> 
   );
 };
 
+// styles pour la page, utilisant les fonctions wd et hd pour le responsive
+
 const styles = StyleSheet.create({
   safeArea: {
-    paddingTop: 100,
+    paddingTop: hd(12), 
     flex: 1,
+    backgroundColor: 'white',
   },
   calendar: {
-    borderRadius: 10,
-    marginBottom: 20,
+    borderRadius: wd(2),
+    marginBottom: hd(2),
     borderColor: 'black',
-    borderWidth: 2
+    borderWidth: 2,
+    marginHorizontal: wd(2.5), 
   },
   scrollContainer: {
-    paddingHorizontal: 20,
-    paddingBottom: 20,
+    paddingHorizontal: wd(5),
+    paddingBottom: hd(3),
   },
-  eventBlock: {
-    height: 72,
-    borderRadius: 10,
-    marginBottom: 15,
-    paddingHorizontal: 20,
-    justifyContent: 'center',
+  eventCard: {
+    paddingVertical: hd(2),
+    borderRadius: wd(4),
+    marginBottom: hd(2),
+
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 2,
   },
-  textEvent: {
+  textContainer: {
+    flex: 1,
+  },
+  titreEvent: {
+    fontSize: wd(4.5), 
+    fontWeight: 'bold',
     color: 'white',
-    fontSize: 16,
-    fontWeight: '600',
+    paddingLeft: wd(8),
   },
-  dateEvent: {
-    fontSize: 12,
+  dateHeure: {
+    fontSize: wd(3.5),
     color: 'white',
-    marginTop: 5,
+    marginTop: hd(0.5),
+    paddingLeft: wd(8),
+    padding: wd(2),
   },
-  horaireEvent: {
-    fontSize: 12,
-    color: 'white',
+  designEvent: {
+    position: 'absolute',
+    alignSelf: 'baseline',
+    bottom: -hd(2),
+    height: hd(1.5),
+    width: '100%',
+    borderBottomLeftRadius: wd(6),
+    borderBottomRightRadius: wd(6),
   },
 });
+
 
 export default PagePlanInscrip;
