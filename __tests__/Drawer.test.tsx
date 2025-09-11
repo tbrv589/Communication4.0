@@ -3,39 +3,44 @@ import { render } from '@testing-library/react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import DrawerNavigator from '../src/navigation/drawer';
 
-jest.mock('../components/DrawerDesign', () => () => null);
+// mcok du composant personnalisé du drawer
+jest.mock('../components/DrawerDesign', () => () => null)
 
+// mock du stack navigator
 jest.mock('../src/navigation/stack', () => {
   return {
     __esModule: true,
     default: () => null,
-  }; 
+  };
 });
-
+// mock du drawer navigator
 jest.mock('@react-navigation/drawer', () => {
   return {
     createDrawerNavigator: () => {
-      const React = require('react');
-      const { Text } = require('react-native');
+      const React = require('react')
+      const { Text } = require('react-native')
 
-      const Navigator = ({ children }: any) => <>{children}</>;
-      const Screen = ({ options }: any) => <Text>{options.drawerLabel}</Text>;
+      const Navigator = ({ children }: any) => <>{children}</>
+      const Screen = ({ name, options }: any) => (
+        <Text>{options?.drawerLabel || name}</Text>
+      );
 
-    },
-  };
-});
-
+      return {
+        Navigator,
+        Screen,
+      };  }, }})
 describe('DrawerNavigator', () => {
   it('rend les éléments du drawer', () => {
     const { getByText } = render(
       <NavigationContainer>
         <DrawerNavigator />
       </NavigationContainer>
-    );
+    )
 
-    expect(getByText('Accueil')).toBeTruthy();
-    expect(getByText('Étape 1')).toBeTruthy();
-    expect(getByText('Étape 2')).toBeTruthy();
-    expect(getByText('Étape 3')).toBeTruthy();
-  });
-});
+    // vérifie les éléments du drawer
+    expect(getByText('Accueil')).toBeTruthy()
+    expect(getByText(/étape 1/i)).toBeTruthy()
+    expect(getByText(/étape 2/i)).toBeTruthy()
+    expect(getByText(/étape 3/i)).toBeTruthy()
+  })
+})

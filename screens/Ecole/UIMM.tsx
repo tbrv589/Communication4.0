@@ -1,299 +1,240 @@
 import { SafeAreaView, ScrollView, StyleSheet, Text, View, Image, Linking, Alert, TouchableOpacity } from 'react-native'
-// import FastImage from 'react-native-fast-image';
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigation } from '@react-navigation/native';
 import BottomBar from '../../components/LowBarre';
 import DrawerButton from '../../components/DrawerDesignButton';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import { screen } from 'three/tsl';
-
-// const icone = [
-//  iconName
-// ]
+import { getUIMM } from '../../services/UIMMService';
+import { wd, hd } from '../../utils/responsive';
 
 const UIMM = () => {
 
     const navigation = useNavigation<any>();
     const Envoiepage = (page : string) => {
-
         navigation.navigate(page);
     };
 
-
+    const [UIMM, setUIMM] = useState<any[]>([])
 
     const openWebUrl = async (): Promise<void> => {
-
-        const url = 'www.pole-formation.net';
-
-        try{
+        const url = 'https://www.pole-formation.net'; 
+        try {
             const autor = await Linking.canOpenURL(url);
-
-            if (autor){
-
+            if (autor) {
                 await Linking.openURL(url);
-
             } else {
-
-                Alert.alert('une erreur est sur l url')
+                Alert.alert('Une erreur est survenue avec l’URL')
             }
-
-        }   catch(error){
-
-            Alert.alert ('Erreur pour l ouverture du lien')
+        } catch (error) {
+            Alert.alert ('Erreur lors de l’ouverture du lien')
         }
-        
     };
 
+    useEffect(() => {
+
+        const fetchData = async () => {
+            try{
+                const uimm = await getUIMM();
+                setUIMM(uimm)
+                console.log("données recus", JSON.stringify(uimm, null, 2))
+            } catch (error) {
+                console.error("erreur chargement", error)
+                
+            }
+        } 
+    }, [])
+
   return (
-    
-    <SafeAreaView style = {styles.SafeAreaView}>
+    <SafeAreaView style={styles.SafeAreaView}>
 
         <DrawerButton />
 
-        <ScrollView contentContainerStyle = {styles.scroll}>
+        <ScrollView contentContainerStyle={styles.scroll}>
 
-            <View style = {styles.container} >
-
-            <Image style = {styles.logo} source={require('../../assets/images/logoPOLEFO.png')} />
-
+            <View style={styles.container}>
+                <Image style={styles.logo} source={require('../../assets/images/logoPOLEFO.png')} />
             </View>
 
-            <View style = {styles.containerTextTitre}>
-
-                <Text style = {styles.TextTitre}> Centre de formation par apprentissage dans l'industrie </Text>
-
+            <View style={styles.containerTextTitre}>
+                <Text style={styles.TextTitre}>
+                    Centre de formation par apprentissage dans l'industrie
+                </Text>
             </View>
 
-            <View style = {styles.containerText}> 
-
-                <Text style = {styles.TextDescription}>Le Pôle formation 58-89, forme aux metiers d'avenir de l'industrie. Les formations sont accessibles post 3eme sur nos sites d'Auxerre et de Nevers  </Text>
-
+            <View style={styles.containerText}> 
+                <Text style={styles.TextDescription}>
+                    Le Pôle formation 58-89, forme aux métiers d'avenir de l'industrie. 
+                    Les formations sont accessibles post 3ème sur nos sites d'Auxerre et de Nevers.
+                </Text>
             </View>
 
-            <View style = {styles.ContainerTextCoordo}>
-
-                <Text style = {styles.TextCoordo}>COORDONNÉES</Text>
-
+            <View style={styles.ContainerTextCoordo}>
+                <Text style={styles.TextCoordo}>COORDONNÉES</Text>
             </View>
 
-            <SafeAreaView style = {styles.zoneCoordo}>
-
-                <Text style = {styles.TextDetailCordo}> AUXERRE 03.86.49.26.20 {'\n'} NEVERS 03.86.59.73.84 {'\n'} recrutement@pole-formation.net </Text>
+            <SafeAreaView style={styles.zoneCoordo}>
+                <Text style={styles.TextDetailCordo}>
+                    AUXERRE 03.86.49.26.20 {'\n'} 
+                    NEVERS 03.86.59.73.84 {'\n'} 
+                    recrutement@pole-formation.net
+                </Text>
 
                 <TouchableOpacity style={styles.containerliensite} onPress={openWebUrl}>
-            <Text style={styles.liensite}>www.pole-formation.net</Text>
+                    <Text style={styles.liensite}>www.pole-formation.net</Text>
                 </TouchableOpacity>
-
             </SafeAreaView>
 
-            
-
-            <View style = {styles.containertextReseau1}>
-
-                <Text style = {styles.textReseau1}>REJOINS-NOUS SUR LES RESEAUX !</Text>
+            <View style={styles.containertextReseau1}>
+                <Text style={styles.textReseau1}>REJOINS-NOUS SUR LES RÉSEAUX !</Text>
             </View>
 
-            <View style = {styles.containerReseauxPrime}>
+            <View style={styles.containerReseauxPrime}>
+                <View style={styles.containerReseaux1}> 
+                    <FontAwesome name='instagram' size={wd(4.5)} color='black' />
+                    <Text style={styles.reseaux}> Pole-formation58-89</Text>
+                </View>
 
-            <View style = {styles.containerReseaux1}> 
-                <FontAwesome name='instagram' size={15} color='black' />
-                <Text style = {styles.reseaux}> Pole-formation58-89</Text>
-            </View>
+                <View style={styles.containerReseaux2}> 
+                    <FontAwesome  name='linkedin' size={wd(4.5)} color='black' />
+                    <Text style={styles.reseaux}> Pole-formation58-89</Text>
+                </View>
 
-            <View style = {styles.containerReseaux2}> 
-                <FontAwesome  name='linkedin' size={15} color='black' />
-                <Text style = {styles.reseaux}> Pole-formation58-89</Text>
-            </View>
-
-            <View style = {styles.containerReseaux2}> 
-                <FontAwesome name='facebook' size={15} color='blue' />
-                <Text style = {styles.reseaux}> Pole-formation58-89</Text>
-            </View>
+                <View style={styles.containerReseaux2}> 
+                    <FontAwesome name='facebook' size={wd(4.5)} color='blue' />
+                    <Text style={styles.reseaux}> Pole-formation58-89</Text>
+                </View>
             </View>
 
         </ScrollView>
 
-    <BottomBar />
-
+        <BottomBar />
 
     </SafeAreaView>
-
   )
 }
 
 const styles = StyleSheet.create({
 
     SafeAreaView: {
-
         flex: 1,
-        // paddingTop: 210,
-
     },
 
     scroll:{
-
-        paddingTop: 25,
-        paddingHorizontal: 16
-
+        paddingTop: hd(3),
+        paddingHorizontal: wd(4)
     },
-
 
     container:{
-
-        
         alignItems: 'center',
-        paddingTop: 35
+        paddingTop: hd(4)
     },
+
     logo:{
-        height: 130,
-        width: 130
+        height: hd(15),
+        width: wd(30),
+        resizeMode: 'contain'
     },
 
     TextTitre:{
-
-
-
         fontWeight: 'bold',
         textAlign: 'center',
-        fontSize: 20,
-        height: 85,
-        width: 321,
-
+        fontSize: wd(5),
+        height: hd(10),
+        width: wd(85),
     },
 
     containerTextTitre:{
-
         alignItems:'center',
-        paddingTop: 25
-        
-        
-
+        paddingTop: hd(3)
     },
 
     containerText:{
-
         alignItems: 'center',
-        height: 80,
-        width: 345
-        
+        height: hd(12),
+        width: wd(90)
     },
 
     TextDescription:{
-
-        fontSize: 14,
+        fontSize: wd(3.8),
         textAlign: 'left'
-
     },
 
     ContainerTextCoordo:{
-
-        alignItems: 'center'
+        alignItems: 'center',
+        marginTop: hd(2)
     },
 
     TextCoordo:{
-
-        fontSize: 20,
+        fontSize: wd(5),
         textDecorationLine: 'underline',
         textAlign: 'center'
     },
 
     zoneCoordo:{
-
         backgroundColor: '#EAEAEA',
         borderColor: 'black', 
         borderWidth: 2,
         justifyContent: 'flex-start',
-        paddingTop: 10,
+        paddingTop: hd(1.5),
         alignItems: 'center',
-        height: 150,
-        width: 354,
-        borderRadius: 25,
-        left: 5
+        height: hd(20),
+        width: wd(90),
+        borderRadius: wd(6),
+        marginTop: hd(2),
+        alignSelf: 'center'
     },
 
     TextDetailCordo:{
-
-        fontSize: 20,
+        fontSize: wd(4.2),
         textAlign: 'center',
         fontWeight: 'bold', 
     },
 
     containerliensite: {
-
         backgroundColor: 'white',
-        top: 25,
-        borderRadius: 25,
-        width: 239 ,
-        height: 31,
+        marginTop: hd(2),
+        borderRadius: wd(6),
+        width: wd(65),
+        height: hd(5),
         justifyContent: 'center'
     },
 
     liensite:{
-
-        fontSize: 18,
+        fontSize: wd(4),
         fontWeight: 'bold',
         textAlign: 'center'
     },
 
     textReseau1: {
-        
         fontWeight: 'bold',
         textAlign: 'center',
-        fontSize: 20,
-        
-    
+        fontSize: wd(5),
     },
 
     containertextReseau1:{
-
-        paddingTop: 20
-
-    },
-
-    CubeButton: {
-
-        height: 50,
-        width: 50
-
-    },
-
-    cubecontainer:{
-
-        position: 'absolute',
-        // zIndex: 25,
-        pointerEvents: 'box-none', //permet de cliquer a travers le container et dcp pas besoin de zindex
-        top: 30,
-        left: 10,
-        height: 50,
-        width: 50
+        paddingTop: hd(3)
     },
 
     reseaux:{
-
-        color: 'blue'
+        color: 'blue',
+        fontSize: wd(4),
+        marginLeft: wd(2)
     },
 
     containerReseaux1:{
-
-        alignContent:'center',
-        flexDirection: 'row'
+        flexDirection: 'row',
+        alignItems:'center'
     },
 
     containerReseaux2:{
         flexDirection: 'row',
-        paddingTop: 10
-
-    },
-
-    containerReseaux3:{
-        flexDirection: 'row',
-        
-
+        alignItems: 'center',
+        paddingTop: hd(2)
     },
 
     containerReseauxPrime:{
         alignItems: 'center',
-        paddingTop: 15
+        paddingTop: hd(2)
     }
 })
 

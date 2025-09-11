@@ -1,4 +1,4 @@
-// import des différentes librairies react et component rso
+
 import React, { useEffect, useState } from "react";
 import {StyleSheet, ScrollView,SafeAreaView, View, Image, Text, TouchableOpacity, ActivityIndicator,} from "react-native";
 import { useNavigation } from "@react-navigation/native";
@@ -14,9 +14,7 @@ const PageEcole = () => {
   const [message, setMessage] = useState<string | null>(null);
   const [ecoles, setEcoles] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
-  
-  // hook pour la navigation
-  const navigation = useNavigation<any>();  
+
 
    // fonction executé au chargement de la page pour récuperer les evenements
   useEffect(() => {
@@ -40,6 +38,7 @@ const PageEcole = () => {
   }, []);
 
   // navigue vers la page spécifié par son nom
+  const navigation = useNavigation<any>();  
   const EnvoiePage = (page: string) => {
     navigation.navigate(page);
   };
@@ -260,7 +259,7 @@ const styles = StyleSheet.create({
   },
   image: {
     width: wd(40),
-    height: wd(40), 
+    height: hd(40), 
     marginTop: hd(6.5), 
     borderRadius: 8,
     alignSelf: "center",

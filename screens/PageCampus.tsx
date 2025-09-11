@@ -1,16 +1,58 @@
 import React from 'react';
-import { View, Text, StyleSheet, Button, SafeAreaView, TouchableOpacity, Image, VirtualizedList } from 'react-native';
+import { View, Text, StyleSheet, Button, SafeAreaView, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { DrawerActions } from '@react-navigation/native';
+import { AvatarSpeaker } from '../components/Avatar';
+import BottomBar from '../components/LowBarre';
 import DrawerButton from '../components/DrawerDesignButton';
+import { ScrollView } from 'react-native-gesture-handler';
+import { wd, hd } from '../utils/responsive';
+import Svg, {Path} from 'react-native-svg';
+
 
 const PageCampus = () => {
-  const navigation = useNavigation();
+
+
+  const navigation = useNavigation<any>();
+
+  const EnvoiePage = (page: string) => {
+    navigation.navigate(page);
+  };
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style = {styles.SafeAreaView}>
+  <DrawerButton />
+      <AvatarSpeaker message= 'message campus'
+        avatarSource={require('../assets/images/IconePersonne.png')} />
+      <ScrollView contentContainerStyle={styles.scroll}>
 
-     <View> <DrawerButton /> </View>
+        {/* <View style={styles.carte}>
+      <Svg width="100%" height="100%" viewBox="0 0 600 700">
+   
+        <Path
+          d="M 280 480 L 350 470 L 370 520 L 320 560 L 270 540 Z"
+          fill="#EEE"
+          stroke="#000"
+          strokeWidth={2}
+          onPress={() => EnvoiePage("IET")}
+        />
+
+     
+        <Path
+          d="M 300 300 L 380 280 L 400 340 L 360 380 L 290 350 Z"
+          fill="#EEE"
+          stroke="#000"
+          strokeWidth={2}
+          onPress={() => EnvoiePage("IET")}
+        />
+      </Svg>
+    </View> */}
+
+
+
+      </ScrollView>
+
+     
+     <BottomBar />
     </SafeAreaView>
 
 
@@ -29,6 +71,25 @@ const styles = StyleSheet.create({
 
     height: 50,
     width: 50
+  },
+
+  SafeAreaView: {
+
+    flex: 1,
+  },
+
+  scroll:{
+
+    paddingTop: hd(3),
+    paddingHorizontal: wd(4)
+  },
+
+  carte: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#fff",
+
   }
 });
 

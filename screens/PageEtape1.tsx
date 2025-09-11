@@ -49,7 +49,7 @@ const PageEtape1 = () => {
                 
                 <ScrollView contentContainerStyle = {styles.scroll}>
 
-                    <TouchableOpacity style = {styles.zone} onPress={() => EnvoiePage('HomeScreen')
+                    <TouchableOpacity style = {styles.zone} onPress={() => EnvoiePage('thematique_1')
                     }>
 
                         <View style = {styles.container}>
@@ -111,7 +111,7 @@ const PageEtape1 = () => {
                     <TouchableOpacity style = {styles.zone2} onPress={() => EnvoiePage('HomeScreen')}> 
         
                         <Text style = {styles.text2}> Profilage Compétence</Text>
-        
+         
         
                     </TouchableOpacity>
     
